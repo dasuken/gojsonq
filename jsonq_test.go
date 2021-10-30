@@ -291,7 +291,7 @@ func TestJSONQ_From(t *testing.T) {
 			expectError: false,
 		},
 		{
-			tag:         "accessing not existed index",
+			tag:         "accessing existed index",
 			query:       "vendor.items.[0]",
 			expected:    `{"id":1,"name":"MacBook Pro 13 inch retina","price":1350}`,
 			expectError: false,
