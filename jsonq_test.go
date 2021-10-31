@@ -48,7 +48,11 @@ func TestJSONQ_decode(t *testing.T) {
 		jq := New()
 		jq.raw = json.RawMessage(tc.jsonStr)
 		jq.decode()
-		if err := jq.Error(); err != nil && !tc.errExpect {
+		err := jq.Error()
+		if err == nil && tc.errExpect {
+			t.Errorf("failed to catch error: %s", tc.tag)
+		}
+		if err != nil && !tc.errExpect {
 			t.Errorf("failed %s", tc.tag)
 		}
 	}
@@ -117,7 +121,11 @@ func TestJSONQ_JSONString(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		if err := New().FromString(tc.jsonStr).Error(); err != nil && !tc.errExpect {
+		err := New().FromString(tc.jsonStr).Error()
+		if err == nil && tc.errExpect {
+			t.Error("failed to catch error")
+		}
+		if err != nil && !tc.errExpect {
 			t.Errorf("failed %s", tc.tag)
 		}
 	}
@@ -143,7 +151,11 @@ func TestJSONQ_FromString(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		if err := New().FromString(tc.inputStr).Error(); err != nil && !tc.errExpect {
+		err := New().FromString(tc.inputStr).Error()
+		if err == nil && tc.errExpect {
+			t.Error("failed to catch error")
+		}
+		if err != nil && !tc.errExpect {
 			t.Errorf("failed %s", tc.tag)
 		}
 	}
